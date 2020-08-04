@@ -118,6 +118,7 @@ class API(object):
     def get_list(
         self,
         search='',
+        where={},
         start=0,
         limit=0,
         order_by='',
@@ -139,10 +140,14 @@ class API(object):
         """
 
         parameters = {}
-        args = ['search', 'start', 'limit', 'minimal']
+        args = ['search', 'start', 'limit', 'minimal', 'where']
         for arg in args:
             if arg in locals() and locals()[arg]:
-                parameters[arg] = locals()[arg]
+                if arg == 'where':
+                    for key, val in where.items():
+                        parameters[key] = val
+                else:
+                    parameters[arg] = locals()[arg]
         if order_by:
             parameters['orderBy'] = order_by
         if order_by_dir:
