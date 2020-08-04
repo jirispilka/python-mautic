@@ -45,14 +45,16 @@ Add a dictionary with 3 attributes for each filter:
 3. val
 
 ```python
-    where = {
-            'where[0][col]': '<field_name>',
-            'where[0][expr]': '<expression>',
-            'where[0][val]': '<value>'
-        }
-    contacts = Contacts(client=mautic)
-    contacts_list = contacts.get_list(minimal=True, limit=step,where=where)```
+where = {
+        'where[0][col]': '<field_name>',
+        'where[0][expr]': '<expression>',
+        'where[0][val]': '<value>'
+    }
+contacts = Contacts(client=mautic)
+contacts_list = contacts.get_list(minimal=True, limit=step,where=where)
+```
     
     
-The list of possible expression is in the API docs: https://developer.mautic.org/#list-contacts , https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/query-builder.html#the-expr-class
+The list of possible expression is in the API docs: https://developer.mautic.org/#list-contacts , 
+https://www.doctrine-project.org/projects/doctrine-orm/en/2.7/reference/query-builder.html#the-expr-class
 
