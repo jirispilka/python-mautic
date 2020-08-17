@@ -93,6 +93,7 @@ class Contacts(API):
     def get_activity_events(
         self,
         search='',
+        limit=1000,
         include_events=None,
         exclude_events=None,
         dateFrom='',
@@ -120,6 +121,7 @@ class Contacts(API):
 
         parameters = {
             'filters[search]': search,
+            'limit': limit,
             'includeEvents': include_events,
             'excludeEvents': exclude_events,
             'filters[dateFrom]': dateFrom,
