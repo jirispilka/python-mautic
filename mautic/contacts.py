@@ -90,6 +90,53 @@ class Contacts(API):
         )
         return self.process_response(response)
 
+    def get_activity_events(
+        self,
+        search='',
+        include_events=None,
+        exclude_events=None,
+        dateFrom='',
+        dateTo='',
+        order_by='',
+        order_by_dir='ASC',
+        page=1
+    ):
+        """
+        Get a list of a contact's engagement events
+
+        :param search: str
+        :param include_events: list|tuple
+        :param exclude_events: list|tuple
+        :
+        :param order_by: str
+        :param order_by_dir: str
+        :param page: int
+        :return: dict|str
+        """
+        if include_events is None:
+            include_events = []
+        if exclude_events is None:
+            exclude_events = []
+
+        parameters = {
+            'filters[search]': search,
+            'includeEvents': include_events,
+            'excludeEvents': exclude_events,
+            'filters[dateFrom]': dateFrom,
+            'filters[dateTo]': dateTo,
+            'orderBy': order_by,
+            'orderByDir': order_by_dir,
+            'page': page
+        }
+        response = self._client.session.get(
+            '{url}/activity'.format(
+                url=self.endpoint_url
+            ),
+            params=parameters
+        )
+        return self.process_response(response)
+
+
     def get_contact_notes(
         self,
         obj_id,
