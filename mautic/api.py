@@ -3,6 +3,7 @@ from __future__ import unicode_literals, absolute_import
 
 import requests
 from requests_oauthlib import OAuth2Session
+import json
 
 
 class MauticOauth2Client(object):
@@ -215,6 +216,22 @@ class API(object):
                 ),
                 data=parameters
             )
+        return self.process_response(response)
+
+    def edit_batch(self,parameters):
+        """
+        Edit using the etid/batch option
+
+        :param paramaters: list|dict (list of dictionaries)
+        """
+
+        data = json.dumps(parameters)
+
+        response = self._client.session.patch(
+            '{url}/batch/edit'.format(url=self.endpoint_url),
+            data=data
+        )
+
         return self.process_response(response)
 
     def delete(self, obj_id):
