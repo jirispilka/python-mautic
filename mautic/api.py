@@ -202,7 +202,7 @@ class API(object):
 
         data = json.dumps(parameters)
 
-        response = self._client.session.patch(
+        response = self._client.session.post(
             '{url}/batch/new'.format(url=self.endpoint_url),
             data=data
         )
