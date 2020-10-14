@@ -193,6 +193,23 @@ class API(object):
         )
         return self.process_response(response)
 
+    def create_batch(self,parameters):
+        """
+                Edit using the new/batch option
+
+                :param paramaters: list|dict (list of dictionaries)
+                """
+
+        data = json.dumps(parameters)
+
+        response = self._client.session.patch(
+            '{url}/batch/new'.format(url=self.endpoint_url),
+            data=data
+        )
+
+        return self.process_response(response)
+
+
     def edit(self, obj_id, parameters, create_if_not_exists=False):
         """
         Edit an item with option to create if it doesn't exist
@@ -220,7 +237,7 @@ class API(object):
 
     def edit_batch(self,parameters):
         """
-        Edit using the etid/batch option
+        Edit using the edit/batch option
 
         :param paramaters: list|dict (list of dictionaries)
         """
