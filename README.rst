@@ -45,13 +45,14 @@ Add a dictionary with 3 attributes for each filter:
 3. val
 
 .. code-block:: python
- >>> where = {
- >>>        'where[0][col]': '<field_name>',
- >>>        'where[0][expr]': '<expression>',
- >>>        'where[0][val]': '<value>'
- >>>    }
- >>> contacts = Contacts(client=mautic)
- >>> contacts_list = contacts.get_list(minimal=True, limit=step,where=where)
+
+     >>> where = {
+     >>>        'where[0][col]': '<field_name>',
+     >>>        'where[0][expr]': '<expression>',
+     >>>        'where[0][val]': '<value>'
+     >>>    }
+     >>> contacts = Contacts(client=mautic)
+     >>> contacts_list = contacts.get_list(minimal=True, limit=step,where=where)
     
     
 The list of possible expression is in the API docs: https://developer.mautic.org/#list-contacts , 
