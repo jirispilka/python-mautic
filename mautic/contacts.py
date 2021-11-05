@@ -92,7 +92,7 @@ class Contacts(API):
 
     def get_activity_events(
         self,
-        search=None,
+        search='',
         limit=1000,
         include_events=None,
         exclude_events=None,
@@ -114,25 +114,22 @@ class Contacts(API):
         :param page: int
         :return: dict|str
         """
+        if include_events is None:
+            include_events = []
+        if exclude_events is None:
+            exclude_events = []
 
-        parameters = f"""{
-            'limit': {limit},
-            'filters[dateFrom]': {dateFrom},
-            'filters[dateTo]': {dateTo},
-            'orderBy': {order_by},
-            'orderByDir': {order_by_dir},
-            'page': {page}
-        }"""
-
-        # do not include the params if they are not requested
-        if include_events is not None:
-            parameters + f",'includeEvents': {include_events}"
-        if exclude_events is not None:
-            parameters + f",'excludeEvents': {exclude_events}"
-        if search is not None:
-            parameters + f",'filters[search]': {search}"
-
-
+        parameters = {
+           # 'filters[search]': search,
+            'limit': limit,
+           # 'includeEvents': include_events,
+           # 'excludeEvents': exclude_events,
+            'filters[dateFrom]': dateFrom,
+            'filters[dateTo]': dateTo,
+            'orderBy': order_by,
+            'orderByDir': order_by_dir,
+            'page': page
+        }
         response = self._client.session.get(
             '{url}/activity'.format(
                 url=self.endpoint_url
