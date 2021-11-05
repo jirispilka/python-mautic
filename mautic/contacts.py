@@ -114,22 +114,29 @@ class Contacts(API):
         :param page: int
         :return: dict|str
         """
-        if include_events is None:
-            include_events = []
-        if exclude_events is None:
-            exclude_events = []
 
         parameters = {
-           # 'filters[search]': search,
             'limit': limit,
-           # 'includeEvents': include_events,
-           # 'excludeEvents': exclude_events,
             'filters[dateFrom]': dateFrom,
             'filters[dateTo]': dateTo,
             'orderBy': order_by,
             'orderByDir': order_by_dir,
             'page': page
         }
+
+        if include_events is not None:
+            i=0
+            for event in include_events:
+                parameters[f'filters[includeEvents][{i}]'] = event
+                i+=1
+
+        if exclude_events is not None:
+            i=0
+            for event in exclude_events:
+                parameters[f'filters[excludeEvents][{i}]'] = event
+                i+=1
+
+
         response = self._client.session.get(
             '{url}/activity'.format(
                 url=self.endpoint_url
