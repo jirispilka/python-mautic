@@ -272,7 +272,7 @@ class Contacts(API):
             'comments': comments
         }
         response = self._client.session.post(
-            '{url}/{id}/dnc/add/{channel}'.format(
+            '{url}/{id}/dnc/{channel}/add'.format(
                 url=self.endpoint_url, id=obj_id, channel=channel
             ),
             data=data
@@ -288,7 +288,7 @@ class Contacts(API):
         :return: dict|str
         """
         response = self._client.session.post(
-            '{url}/{id}/dnc/remove/{channel}'.format(
+            '{url}/{id}/dnc/{channel}/remove'.format(
                 url=self.endpoint_url, id=obj_id, channel=channel
             )
         )

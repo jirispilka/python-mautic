@@ -5,7 +5,13 @@ from .api import API
 
 
 class Campaigns(API):
-    _endpoint = 'campaigns'
+    _endpoint = "campaigns"
+
+    def get(self, obj_id):
+        """Get a campaign by ID."""
+
+        response = self._client.session.get("{url}/{id}".format(url=self.endpoint_url, id=obj_id))
+        return self.process_response(response)
 
     def add_contact(self, obj_id, contact_id):
         """
@@ -16,9 +22,7 @@ class Campaigns(API):
         :return: dict|str
         """
         response = self._client.session.post(
-            '{url}/{id}/contact/add/{contact_id}'.format(
-                url=self.endpoint_url, id=obj_id, contact_id=contact_id
-            )
+            "{url}/{id}/contact/add/{contact_id}".format(url=self.endpoint_url, id=obj_id, contact_id=contact_id)
         )
         return self.process_response(response)
 
@@ -31,8 +35,6 @@ class Campaigns(API):
         :return: dict|str
         """
         response = self._client.session.post(
-            '{url}/{id}/contact/remove/{contact_id}'.format(
-                url=self.endpoint_url, id=obj_id, contact_id=contact_id
-            )
+            "{url}/{id}/contact/remove/{contact_id}".format(url=self.endpoint_url, id=obj_id, contact_id=contact_id)
         )
         return self.process_response(response)
