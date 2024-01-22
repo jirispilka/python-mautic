@@ -16,7 +16,7 @@ mclient = MauticBasicAuthClient(
     base_url=Config.BASE_URL.__str__(), username=Config.USERNAME, password=Config.PASSWORD.get_secret_value()
 )
 
-TIMESTAMP_FROM = (datetime.now() - timedelta(days=5)).timestamp()
+TIMESTAMP_FROM = (datetime.now() - timedelta(days=7)).timestamp()
 
 client = boto3.client("sesv2")
 ses_suppressed = client.list_suppressed_destinations(StartDate=TIMESTAMP_FROM)
@@ -42,6 +42,7 @@ def get_by_email(keyword: str) -> tuple[str | None, dict | None]:
 N = len(ses_suppressed["SuppressedDestinationSummaries"])
 print(f"Number of suppressed emails: {N}")
 
+
 for i, v in enumerate(ses_suppressed["SuppressedDestinationSummaries"]):
 
     email = v["EmailAddress"]
@@ -57,7 +58,8 @@ for i, v in enumerate(ses_suppressed["SuppressedDestinationSummaries"]):
     comments = f"SES-{v['Reason']}"
 
     print(f"doNotContact: {rec['doNotContact']}")
-    response = contacts.add_dnc(_id, channel="email", reason=reason, comments=comments)
-    print(f"doNotContact: {response['contact']['doNotContact']}")
+    if not rec["doNotContact"]:
+        response = contacts.add_dnc(_id, channel="email", reason=reason, comments=comments)
+        print(f"doNotContact: {response['contact']['doNotContact']}")
 
 print("DONE")
