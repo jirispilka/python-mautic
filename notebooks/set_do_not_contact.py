@@ -16,7 +16,7 @@ mclient = MauticBasicAuthClient(
     base_url=Config.BASE_URL.__str__(), username=Config.USERNAME, password=Config.PASSWORD.get_secret_value()
 )
 
-TIMESTAMP_FROM = (datetime.now() - timedelta(days=3)).timestamp()
+TIMESTAMP_FROM = (datetime.now() - timedelta(days=7)).timestamp()
 
 client = boto3.client("sesv2")
 ses_suppressed = client.list_suppressed_destinations(StartDate=TIMESTAMP_FROM)

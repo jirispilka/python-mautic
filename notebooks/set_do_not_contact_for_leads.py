@@ -9,7 +9,7 @@ from mautic import Contacts, MauticBasicAuthClient
 from mautic.config import Config
 
 CONTACTS = ""
-COMPANIES = "~/Downloads/hubspot-crm-exports-wellness-mql-opportunity-2024-01-24.csv"
+COMPANIES = "~/Downloads/hubspot-crm-exports-wellness-mql-opportunity-2024-01-29.csv"
 
 mclient = MauticBasicAuthClient(
     base_url=Config.BASE_URL.__str__(), username=Config.USERNAME, password=Config.PASSWORD.get_secret_value()
@@ -28,9 +28,9 @@ def get_by_keyword(keyword: str) -> dict | None:
     return d["contacts"]
 
 
-def preprocess_domain(s: str) -> str:
+def preprocess_domain(s: str | float) -> str:
     """Remove https://, remove www. and slashes"""
-    s = s.replace("https://", "").replace("www.", "").replace("/", "")
+    s = str(s).replace("https://", "").replace("www.", "").replace("/", "")
     return s.replace(".com", "").replace(".edu", "").replace(".net", "").replace(".org", "")
 
 
